@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SAMPLE CAFE 冬の新作キャンペーン (テスト用ページ 3)</title>
+<style>
+body{font-family:sans-serif;margin:0;background:#fff;color:#5a3418}
+.hero{padding:60px 40px;background:#f7efe6}
+.hero h1{font-size:40px;margin:0 0 16px}
+.probe{display:flex;flex-wrap:wrap;gap:8px;padding:16px 40px}
+.probe img,.probe iframe{width:120px;height:60px;border:1px dashed #ccc}
+</style>
+<!-- 内部アドレスへのサブリソース (SSRF の確認用。届いてはいけない) -->
+<link rel="stylesheet" href="https://127.0.0.1:18999/ba324-css-https">
+<link rel="stylesheet" href="http://127.0.0.1:18999/ba324-css-http">
+</head>
+<body>
+<section class="hero">
+  <h1>冬の新作ラテ、はじまる</h1>
+  <p>SAMPLE CAFE の冬限定ラテが登場。12 月末まで全サイズ 50 円引き。</p>
+</section>
+<div class="probe">
+  <img alt="" src="https://127.0.0.1:18999/ba324-img-https">
+  <img alt="" src="http://127.0.0.1:18999/ba324-img-http">
+  <img alt="" src="https://localhost:18999/ba324-img-localhost">
+  <img alt="" src="http://[::1]:18999/ba324-img-ipv6">
+  <img alt="" src="http://169.254.169.254/latest/meta-data/">
+  <img alt="" src="https://169.254.169.254/latest/meta-data/">
+  <img alt="" src="http://10.0.0.1/ba324-img-private">
+  <img alt="" src="http://127.0.0.1:8000/health">
+  <iframe title="probe-https" src="https://127.0.0.1:18999/ba324-iframe-https"></iframe>
+  <iframe title="probe-http" src="http://127.0.0.1:18999/ba324-iframe-http"></iframe>
+</div>
+<script src="https://127.0.0.1:18999/ba324-script-https"></script>
+<script>
+  // JS からの通信も試す (fetch / sendBeacon)
+  try { fetch("https://127.0.0.1:18999/ba324-fetch-https", {mode: "no-cors"}).catch(function () {}); } catch (e) {}
+  try { fetch("http://127.0.0.1:18999/ba324-fetch-http", {mode: "no-cors"}).catch(function () {}); } catch (e) {}
+</script>
+</body>
+</html>
